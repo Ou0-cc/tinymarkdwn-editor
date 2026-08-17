@@ -1,12 +1,23 @@
 <script lang="ts">
-	import './app.css';
-	import { ModeWatcher } from 'mode-watcher';
-	import { Toaster } from '$lib/components/ui/sonner/index.js';
-	import { provideIsMobile } from '$lib/hooks/is-mobile.svelte';
+    import './app.css';
+    import { onMount } from 'svelte';
+    import { ModeWatcher } from 'mode-watcher';
+    import { Toaster } from '$lib/components/ui/sonner/index.js';
+    import { provideIsMobile } from '$lib/hooks/is-mobile.svelte';
+    import { init } from '@plausible-analytics/tracker';
 
-	provideIsMobile();
+    onMount(() => {
+        init({
+            domain: 'ou0.cc',
+            endpoint: 'https://plausible.canine.tools/api/event',
+            captureOnLocalhost: false,
+            outboundLinks: true
+        });
+    });
 
-	let { children } = $props();
+    provideIsMobile();
+
+    let { children } = $props();
 </script>
 
 <ModeWatcher />
